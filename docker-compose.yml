@@ -1,0 +1,26 @@
+---
+version: '3.9'
+
+services:
+  dev:
+    build:
+      context: dev/
+    volumes:
+      - type: volume
+        source: dev
+        target: /home/boxfuse/boxfuse-sample-java-war-hello/target/
+
+  prod:
+    build:
+      context: prod/
+    volumes:
+      - type: volume
+        source: dev
+        target: /opt/tomcat/webapps/
+    ports:
+      - "9090:8080"
+    depends_on:
+      - dev
+
+volumes:
+  dev:
